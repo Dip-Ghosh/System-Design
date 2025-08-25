@@ -1,0 +1,18 @@
+services:
+  app:
+    build:
+      context: ..
+      dockerfile: ./Dockerfile
+    image: example-app
+    container_name: laravel_app
+    env_file:
+      - .env
+    ports:
+      - "9000:9000"
+    volumes:
+      - ../:/var/www
+    depends_on:
+      - mysql
+      - redis
+    networks:
+      - appnet

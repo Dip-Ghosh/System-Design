@@ -1,0 +1,9 @@
+name: laravel-stack
+
+networks:
+  appnet:
+    driver: bridge
+
+volumes:
+  mysql_data:
+  redis_data:

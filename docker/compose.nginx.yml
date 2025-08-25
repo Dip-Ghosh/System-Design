@@ -1,0 +1,13 @@
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    depends_on:
+      - app
+    ports:
+      - "8080:80"
+    volumes:
+      - ../:/var/www
+      - ../nginx:/etc/nginx/conf.d:ro
+    networks:
+      - appnet
