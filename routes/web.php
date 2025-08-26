@@ -1,18 +1,47 @@
 <?php
 
+use Elastic\Elasticsearch\ClientBuilder;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Route;
+use Faker\Factory as Faker;
 
 Route::get('/', function () {
-    $data = [
-        'user_id'       => '012',
-        'username'      => 'noah_hall',
-        'email'         => 'noah@example.com',
-        'last_activity' => '2023-01-10 19:45:00',
-    ];
-    Cache::forever('foo', $data); // ✅ persists in Redis
+    ini_set('max_execution_time', 0); // 0 = unlimited
+    set_time_limit(0);
 
-// store "forever" (no TTL)
-//    Cache::put('foo', $data,  now()->addMinutes(30));
-    return view('welcome');
-});
+//    $client = ClientBuilder::create()
+//        ->setHosts([env('ELASTICSEARCH_HOST')])
+//        ->build();
+
+    $faker     = Faker::create();
+    $batchSize = 1000;
+    $total     = 1000000; // 1M records
+
+    for ($i = 1; $i <= $total; $i += $batchSize) {
+        $params = ['body' => []];
+
+        for ($j = 0; $j < $batchSize; $j++) {
+            $id               = $i + $j;
+            $params['body'][] = [
+                'index' => [
+                    '_index' => 'products',
+                    '_id'    => $id,
+                ],
+            ];
+            $params['body'][$id] = [
+                'name'     => $faker->words(3, true),
+                'price'    => $faker->randomFloat(2, 100, 3000),
+                'in_stock' => $faker->boolean,
+            ];
+
+
+        }
+
+        Cache::forever('products', $params);
+
+//        $client->bulk($params);
+//        $response = $client->index($params);
+
+    }
+        return view('welcome');
+    });

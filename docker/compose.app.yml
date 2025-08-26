@@ -3,8 +3,8 @@ services:
     build:
       context: ..
       dockerfile: ./Dockerfile
-    image: example-app
-    container_name: laravel_app
+    image: microservice
+    container_name: microservice
     env_file:
       - .env
     ports:
@@ -14,5 +14,6 @@ services:
     depends_on:
       - mysql
       - redis
+      - elasticsearch
     networks:
       - appnet

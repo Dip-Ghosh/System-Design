@@ -7,3 +7,4 @@ networks:
 volumes:
   mysql_data:
   redis_data:
+  es_data:

@@ -11,6 +11,8 @@ docker compose \
   -f compose.redis.yml \
   -f compose.app.yml \
   -f compose.nginx.yml \
+  -f compose.elasticsearch.yml \
+  -f compose.kibana.yml \
   down "$@"
 
 echo "✅ Stack stopped!"
