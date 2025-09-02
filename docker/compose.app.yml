@@ -1,19 +1,15 @@
 services:
   app:
-    build:
-      context: ..
-      dockerfile: ./Dockerfile
-    image: microservice
+    build: ./php
     container_name: microservice
-    env_file:
-      - .env
+    env_file: ../.env
     ports:
-      - "9000:9000"
+      - "9001:9000"
     volumes:
       - ../:/var/www
     depends_on:
-      - mysql
+      - mysql_master
+      - mysql_slave
       - redis
       - elasticsearch
-    networks:
-      - appnet
+    networks: [appnet]

@@ -1,0 +1,11 @@
+services:
+  worker:
+    build: ./worker
+    container_name: laravel_worker
+    env_file: ../.env
+    volumes:
+      - ../:/var/www
+    depends_on:
+      - app
+      - redis
+    networks: [appnet]

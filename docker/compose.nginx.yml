@@ -1,6 +1,6 @@
 services:
   nginx:
-    image: nginx:latest
+    build: ./nginx
     container_name: nginx
     depends_on:
       - app
@@ -8,6 +8,4 @@ services:
       - "8080:80"
     volumes:
       - ../:/var/www
-      - ../nginx:/etc/nginx/conf.d:ro
-    networks:
-      - appnet
+    networks: [appnet]

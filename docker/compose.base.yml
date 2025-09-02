@@ -2,9 +2,11 @@ name: laravel-stack
 
 networks:
   appnet:
-    driver: bridge
 
 volumes:
-  mysql_data:
+  mysql_master_data:
+  mysql_slave_data:
   redis_data:
   es_data:
+
+

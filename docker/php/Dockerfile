@@ -10,11 +10,6 @@ RUN apk add --no-cache \
 RUN docker-php-ext-configure gd --with-jpeg \
  && docker-php-ext-install -j$(nproc) pdo_mysql bcmath intl gd zip
 
-# Redis extension
-RUN apk add --no-cache $PHPIZE_DEPS \
- && pecl install redis \
- && docker-php-ext-enable redis \
- && apk del $PHPIZE_DEPS
 
 # Opcache (good even in dev)
 RUN docker-php-ext-install opcache
