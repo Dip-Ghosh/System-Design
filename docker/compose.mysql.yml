@@ -8,9 +8,13 @@ services:
       MYSQL_DATABASE: ${MYSQL_DATABASE}
       MYSQL_USER: ${MYSQL_USER}
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_REPL_USER: ${MYSQL_REPL_USER}
+      MYSQL_REPL_PASSWORD: ${MYSQL_REPL_PASSWORD}
+      MYSQL_ROOT_HOST: '%'
     volumes:
       - mysql_master_data:/var/lib/mysql
-      - ./mysql-master/replication/master-init.sql:/docker-entrypoint-initdb.d/master-init.sql:ro
+      - ./mysql-master/conf.d/master.cnf:/etc/mysql/conf.d/master.cnf:ro
+      - ./mysql-master/replication/master-init.sh:/docker-entrypoint-initdb.d/master-init.sh:ro
     networks: [appnet]
     ports:
       - "3307:3306"
@@ -21,9 +25,15 @@ services:
     env_file: ../.env
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_REPL_USER: ${MYSQL_REPL_USER}
+      MYSQL_REPL_PASSWORD: ${MYSQL_REPL_PASSWORD}
+      MYSQL_MASTER_HOST: mysql_master
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_ROOT_HOST: '%'
     depends_on: [mysql_master]
     volumes:
       - mysql_slave_data:/var/lib/mysql
+      - ./mysql-slave/conf.d/slave.cnf:/etc/mysql/conf.d/slave.cnf:ro
       - ./mysql-slave/replication/slave-init.sh:/docker-entrypoint-initdb.d/slave-init.sh:ro
     networks: [appnet]
     ports:

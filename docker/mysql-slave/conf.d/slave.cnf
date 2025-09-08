@@ -1,0 +1,42 @@
+[mysqld]
+# Server identification
+server-id = 2
+
+# Relay logging
+relay-log = mysql-relay-bin
+log-slave-updates = ON
+read-only = ON
+
+# GTID
+gtid-mode = ON
+enforce-gtid-consistency = ON
+slave-skip-errors = 1062
+
+# Networking
+bind-address = 0.0.0.0
+skip-host-cache
+skip-name-resolve
+
+# Authentication
+default-authentication-plugin = mysql_native_password
+
+# Character set
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+# Connection settings
+max_connections = 200
+connect_timeout = 60
+wait_timeout = 28800
+interactive_timeout = 28800
+
+# Replication settings
+relay-log-recovery = ON
+slave-net-timeout = 60
+
+# Logging
+general_log = 1
+general_log_file = /var/lib/mysql/general.log
+slow_query_log = 1
+slow_query_log_file = /var/lib/mysql/slow.log
+long_query_time = 2

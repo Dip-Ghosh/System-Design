@@ -1,0 +1,41 @@
+[mysqld]
+# Server identification
+server-id = 1
+
+# Binary logging
+log-bin = mysql-bin
+binlog-format = row
+binlog-do-db = laravel
+
+# GTID
+gtid-mode = ON
+enforce-gtid-consistency = ON
+
+# Networking
+bind-address = 0.0.0.0
+skip-host-cache
+skip-name-resolve
+
+# Authentication
+default-authentication-plugin = mysql_native_password
+
+# Performance
+innodb_flush_log_at_trx_commit = 1
+sync_binlog = 1
+
+# Character set
+character-set-server = utf8mb4
+collation-server = utf8mb4_unicode_ci
+
+# Connection settings
+max_connections = 200
+connect_timeout = 60
+wait_timeout = 28800
+interactive_timeout = 28800
+
+# Logging
+general_log = 1
+general_log_file = /var/lib/mysql/general.log
+slow_query_log = 1
+slow_query_log_file = /var/lib/mysql/slow.log
+long_query_time = 2

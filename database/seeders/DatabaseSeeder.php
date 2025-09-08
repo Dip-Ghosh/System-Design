@@ -13,11 +13,11 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $batchSize = 100; // insert 10k at a time
+        $total = 10000000;
 
-        User::factory(100)->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        for ($i = 0; $i < $total / $batchSize; $i++) {
+            User::factory($batchSize)->create();
+        }
     }
 }
