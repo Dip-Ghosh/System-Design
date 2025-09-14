@@ -6,7 +6,7 @@ networks:
 volumes:
   mysql_master_data:
   mysql_slave_data:
-  redis_data:
-  es_data:
+#  redis_data:
+#  es_data:
 
 

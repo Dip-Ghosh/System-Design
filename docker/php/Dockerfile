@@ -8,7 +8,29 @@ RUN apk add --no-cache \
 
 # PHP extensions
 RUN docker-php-ext-configure gd --with-jpeg \
- && docker-php-ext-install -j$(nproc) pdo_mysql bcmath intl gd zip
+ && docker-php-ext-install -j$(nproc) pdo_mysql bcmath intl gd zip exif pcntl
+
+#RUN apt-get update && apt-get install -y \
+#    libzip-dev \
+#    zip \
+#    unzip \
+#    git \
+#    curl \
+#    autoconf \
+#    pkg-config \
+#    libssl-dev \
+#    build-essential \
+#    && pecl install redis \
+#    && docker-php-ext-enable redis \
+#    && apt-get clean \
+#    && rm -rf /var/lib/apt/lists/*
+#
+## Install Redis extension via PECL 👇
+#RUN pecl install redis \
+#    && docker-php-ext-enable redis
+#
+## Verify Redis is installed
+#RUN php -m | grep redis
 
 
 # Opcache (good even in dev)

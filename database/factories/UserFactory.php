@@ -29,6 +29,7 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'created_at'        => $this->faker->dateTimeBetween('2023-01-01', '2025-12-31'),
         ];
     }
 

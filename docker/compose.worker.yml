@@ -7,5 +7,5 @@ services:
       - ../:/var/www
     depends_on:
       - app
-      - redis
+#      - redis
     networks: [appnet]
