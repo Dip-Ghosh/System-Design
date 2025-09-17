@@ -9,7 +9,10 @@ COMPOSE_FILES="
   -f compose.app.yml
   -f compose.nginx.yml
   -f compose.mysql.yml
-  -f compose.airflow.yml
+  -f compose.redis.yml
+  -f compose.elasticsearch.yml
+  -f compose.kibana.yml
+  -f compose.worker.yml
 "
 
 if [[ "${1:-}" == "--fresh" ]]; then
@@ -21,16 +24,4 @@ fi
 echo "🚀 Starting stack..."
 docker compose $COMPOSE_FILES up -d --build "$@"
 
-docker compose $COMPOSE_FILES run --rm airflow-webserver airflow db init
-docker compose $COMPOSE_FILES run --rm airflow-webserver airflow users create \
-  --username admin --password admin \
-  --firstname Admin --lastname User \
-  --role Admin --email admin@example.com
 echo "✅ All services are up!"
-#  -f compose.redis.yml
-#  -f compose.elasticsearch.yml
-#  -f compose.elasticsearch.yml
-#  -f compose.kibana.yml
-#  -f compose.nginx.yml
-#  -f compose.worker.yml
-#  -f compose.mysql.yml

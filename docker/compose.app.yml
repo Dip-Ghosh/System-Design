@@ -10,6 +10,6 @@ services:
     depends_on:
       - mysql_master
       - mysql_slave
-#      - redis
-#      - elasticsearch
+      - redis
+      - elasticsearch
     networks: [appnet]

@@ -4,7 +4,6 @@ services:
     container_name: nginx
     depends_on:
       - app
-      - airflow-webserver
     ports:
       - "80:80"
       - "443:443"

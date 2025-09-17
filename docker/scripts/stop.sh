@@ -9,11 +9,11 @@ COMPOSE_FILES="
     -f compose.app.yml
     -f compose.nginx.yml
     -f compose.mysql.yml
-    -f compose.airflow.yml
+    -f compose.redis.yml
+    -f compose.elasticsearch.yml
+    -f compose.kibana.yml
+    -f compose.worker.yml
 "
 
 echo "🛑 Stopping all services..."
 docker compose $COMPOSE_FILES down --remove-orphans
-#  -f compose.redis.yml
-#  -f compose.elasticsearch.yml
-#  -f compose.kibana.yml
